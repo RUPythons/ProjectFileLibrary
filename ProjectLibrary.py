@@ -1,20 +1,24 @@
-#Project Library
+#Project Library, update 12/3 part 2
 
 import random                   #needed to generate random numbers
 import urllib.request           #opens url library to read website & save website
 from bs4 import BeautifulSoup   #cleans up underlying website code - need to download to use file
-import sre_compile              #used to import re, which is used to compile items from searches
-import re
+
 
 
 def build_dictionary(first_list,second_list):       #will build dictionary to hold list of websites & images
     new_dict = dict(zip(first_list,second_list))    #uses the zip function to build a dictionary from two lists
     return new_dict                                 #note - this matches each pair linearly so order is important for both lists
 
+def cleaner(name_str):
+    remove = "\'\"!/,?-():;"
+    for i in range(0,len(remove)):
+        name_str = name_str.replace(remove[i],"")
+    return name_str
+
 def download_image(url):
-    name = random.randrange(1, 10000)               #assigns random number to name each image
-    full_name = str(name) + ".jpg"                  #defines how to name each image
-    urllib.request.urlretrieve(str(url), full_name) #opens website and downloads the image
+    name = str(cleaner(url))               #assigns random number to name each image                     
+    urllib.request.urlretrieve(url, 'C:/Group14/'+str(cleaner(url))) #opens website and downloads the image
 
 etsy = "https:etsy.com"                         #defining a constant to satisfy grading rubric
 
